@@ -1,0 +1,27 @@
+{
+	"name": "OrpAppv2",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest"
+	},
+	"dependencies": {
+		"art": "^0.10.2",
+		"d3": "^5.5.0",
+		"d3-shape": "^1.2.0",
+		"react": "16.0.0-alpha.6",
+		"react-native": "0.44.0",
+		"react-native-mask": "^0.5.0",
+		"react-navigation": "^2.6.2"
+	},
+	"devDependencies": {
+		"babel-jest": "23.4.0",
+		"babel-preset-react-native": "4.0.0",
+		"jest": "23.4.0",
+		"react-test-renderer": "16.0.0-alpha.6"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
+}
