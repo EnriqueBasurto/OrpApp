@@ -1,35 +1,10 @@
-/*import React from 'react';
-import { StackNavigator } from 'react-navigation';
-import Home from "./Home";
-import GetData from "./GetData";
 
-const RootStack = StackNavigator(
-  {
-    Home: {
-      screen: Home,
-    },
-    GetData: {
-      screen: GetData,
-    },
-  },
-  {
-    initialRouteName: 'GetData',
-  }
-);
-
-export default class App extends React.Component {
-  render() {
-    return <RootStack />;
-  }
-}*/
-
-
+import { Button, View, Text } from 'react-native';
+import { StackNavigator } from 'react-navigation'; // Version can be specified in package.json
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
@@ -38,7 +13,30 @@ import {loadPage} from "./Api";
 import * as d3 from "d3/dist/d3";
 import {Group, Shape, Surface} from "react-native/Libraries/ART/ReactNativeART";
 
-export default class GetData extends Component {
+class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
+      </View>
+    );
+  }
+}
+
+class DetailsScreen extends React.Component {
+
+  constructor(){
+    super();
+    this.login = this.login.bind(this);
+
+    this.state={
+      channel:"",
+    };
+  }
 
   login(){
     let body ="CI1VOXF6NO4H4PEC";
@@ -49,30 +47,29 @@ export default class GetData extends Component {
         .domain([0, 100])
         .range([0, 300]);
 
-                y(50); // 320
-                y(80); // 512r
+      y(50); // 320
+      y(80); // 512r
     }).catch(error => {
       console.warn(error);
     })
   }
-  constructor(){
-    super();
-    this.login = this.login.bind(this);
-
-    this.state={
-      channel:"",
-      data : [
-        { number:  8,
-          name: 'Fun activities'
-        }
-      ],
-      animating: true
-    };
-  }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Details Screen</Text>
+        <Button
+          title="Go to Details... again"
+          onPress={() => this.props.navigation.push('Details')}
+        />
+        <Button
+          title="Go to Home"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
+        <Button
+          title="Go back"
+          onPress={() => this.props.navigation.goBack()}
+        />
 
         <View style={styles.inputBotton}>
           <Text style={{color:"#000",fontWeight:"900"}}>Channel</Text>
@@ -104,10 +101,28 @@ export default class GetData extends Component {
           </Surface>
         </View>
 
-        <Text style={styles.text}>Washes</Text>
-
       </View>
     );
+  }
+}
+
+const RootStack = StackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+    },
+    Details: {
+      screen: DetailsScreen,
+    },
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+export default class App extends React.Component {
+  render() {
+    return <RootStack />;
   }
 }
 
